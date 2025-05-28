@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator, ScrollView, Platform, TouchableOpacity, Modal, FlatList, Image } from 'react-native';
+import { View, Text, ActivityIndicator, ScrollView, Platform, TouchableOpacity, Modal, FlatList, Image, Alert } from 'react-native';
 import { Background } from "../Login/styles";
 import { mockDashboardData } from '../../mocks/data';
 import { styles } from './styles';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Calendar } from 'react-native-calendars';
+import { deleteTransaction } from '../../services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const months = [
   'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
@@ -69,6 +71,55 @@ export default function Home() {
     setFilteredTransactions(filtered);
     setFilteredSummary({ balance: income - expenses, income, expenses });
     setShowCalendar(false);
+  };
+
+  // Função para deletar uma transação
+  const handleDeleteTransaction = async (id) => {
+    console.log("Botão de deletar clicado para ID:", id);
+    
+    if (window.confirm("Tem certeza que deseja excluir esta transação?")) {
+      try {
+        console.log("Iniciando processo de deleção...");
+        
+        const userId = await AsyncStorage.getItem('userId');
+        console.log("ID do usuário:", userId);
+        
+        if (!userId) {
+          throw new Error('ID do usuário não encontrado');
+        }
+        
+        console.log("Chamando API de deleção...");
+        const result = await deleteTransaction(id);
+        console.log("Resposta da API:", result);
+        
+        // Atualiza as transações filtradas
+        const newFilteredTransactions = filteredTransactions.filter(item => item.id !== id);
+        setFilteredTransactions(newFilteredTransactions);
+
+        // Atualiza os dados do dashboard
+        const newDashboardTransactions = dashboardData.recentTransactions.filter(item => item.id !== id);
+        const newDashboardData = {
+          ...dashboardData,
+          recentTransactions: newDashboardTransactions
+        };
+        setDashboardData(newDashboardData);
+
+        // Atualiza o resumo
+        let income = 0;
+        let expenses = 0;
+        newFilteredTransactions.forEach(item => {
+          if (item.type === 'income') income += item.amount;
+          else expenses += item.amount;
+        });
+        setFilteredSummary({ balance: income - expenses, income, expenses });
+
+        window.alert("Transação excluída com sucesso!");
+      } catch (error) {
+        window.alert(`Erro ao deletar: ${error.message}`);
+      }
+    } else {
+      console.log("Deleção cancelada pelo usuário");
+    }
   };
 
   if (loading) {
@@ -141,19 +192,27 @@ export default function Home() {
           </Modal>
           {/* Lista de movimentações filtrada */}
           {filteredTransactions.map(item => (
-            <View key={item.id} style={styles.transactionItemShadow}>
-              <View style={[
-                styles.badge,
-                { backgroundColor: item.type === 'income' ? '#00B94A' : '#EF463A', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }
-              ]}>
-                {item.type === 'income' ? (
-                  <Ionicons name="arrow-up" size={16} color="#FFF" style={{ marginRight: 4 }} />
-                ) : (
-                  <Ionicons name="arrow-down" size={16} color="#FFF" style={{ marginRight: 4 }} />
-                )}
-                <Text style={[styles.badgeText, { fontStyle: 'italic' }]}>{item.type === 'income' ? 'receita' : 'despesa'}</Text>
+            <View key={item.id} style={[styles.transactionItemShadow, { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 12 }]}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
+                <View style={[
+                  styles.badge,
+                  { backgroundColor: item.type === 'income' ? '#00B94A' : '#EF463A', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }
+                ]}>
+                  {item.type === 'income' ? (
+                    <Ionicons name="arrow-up" size={16} color="#FFF" style={{ marginRight: 4 }} />
+                  ) : (
+                    <Ionicons name="arrow-down" size={16} color="#FFF" style={{ marginRight: 4 }} />
+                  )}
+                  <Text style={[styles.badgeText, { fontStyle: 'italic' }]}>{item.type === 'income' ? 'receita' : 'despesa'}</Text>
+                </View>
+                <Text style={[styles.transactionValueBelow, { marginLeft: 12 }]}>R$ {item.amount.toFixed(2)}</Text>
               </View>
-              <Text style={styles.transactionValueBelow}>R$ {item.amount.toFixed(2)}</Text>
+              <TouchableOpacity 
+                onPress={() => handleDeleteTransaction(item.id)}
+                style={{ padding: 4 }}
+              >
+                <Ionicons name="close-circle" size={24} color="#EF463A" />
+              </TouchableOpacity>
             </View>
           ))}
         </View>

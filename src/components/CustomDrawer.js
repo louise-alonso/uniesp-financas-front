@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
-import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { DrawerContentScrollView } from '@react-navigation/drawer';
 
 export default function CustomDrawer(props) {
+  const { state, navigation, descriptors } = props;
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={{ flex: 1 }}>
       <View style={{ alignItems: 'center', marginTop: 32, marginBottom: 16 }}>
@@ -14,26 +15,34 @@ export default function CustomDrawer(props) {
         <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 16 }}>Bem-vindo</Text>
       </View>
       <View style={{ flex: 1, paddingHorizontal: 12 }}>
-        <DrawerItemList
-          {...props}
-          itemStyle={{
-            borderRadius: 6,
-            backgroundColor: '#F0F4FF',
-            marginBottom: 20,
-            marginHorizontal: 0,
-            minHeight: 48,
-            justifyContent: 'center',
-            elevation: 1
-          }}
-          labelStyle={{
-            color: '#171717',
-            fontWeight: 'bold',
-            fontSize: 16,
-            marginLeft: 0
-          }}
-          activeBackgroundColor="#3B3DBF"
-          activeTintColor="#FFF"
-        />
+        {state.routes.map((route, index) => {
+          const focused = state.index === index;
+          const { title } = descriptors[route.key].options || {};
+          return (
+            <TouchableOpacity
+              key={route.key}
+              onPress={() => navigation.navigate(route.name)}
+              style={{
+                borderRadius: 4,
+                backgroundColor: focused ? '#3B3DBF' : '#F0F4FF',
+                marginBottom: 8,
+                minHeight: 48,
+                justifyContent: 'center',
+                alignItems: 'flex-start',
+                paddingHorizontal: 16,
+                elevation: 1
+              }}
+            >
+              <Text style={{
+                color: focused ? '#FFF' : '#171717',
+                fontWeight: 'bold',
+                fontSize: 16
+              }}>
+                {title || route.name}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
       </View>
     </DrawerContentScrollView>
   );

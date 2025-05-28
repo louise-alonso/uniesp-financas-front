@@ -1,17 +1,13 @@
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
-import { Container, Title, ButtonMenu } from './styles';
-import { Ionicons } from '@expo/vector-icons';
+import { Container, Title } from './styles';
 
 export default function Header({ title }){
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   return(
     <Container>
-      <ButtonMenu onPress={ () => navigation.openDrawer() }>
-        <Ionicons name="menu" size={35} color="#121212" />
-      </ButtonMenu>
-
+      {/* Removido o botão de menu */}
       { title && (
         <Title>
           {title}

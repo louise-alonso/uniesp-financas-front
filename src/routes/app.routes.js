@@ -20,7 +20,10 @@ function AppRoutes(){
         drawerActiveBackgroundColor:'#3b3dbf',
         drawerActiveTintColor: '#FFF',
         drawerInactiveBackgroundColor: '#F0F2FF',
-        drawerInactiveTintColor: '#121212'
+        drawerInactiveTintColor: '#121212',
+        headerStyle: { backgroundColor: '#FFF', borderBottomWidth: 0 },
+        headerTintColor: '#171717',
+        headerTitleStyle: { fontWeight: 'bold' }
       }}
     >
       <AppDrawer.Screen
@@ -29,16 +32,17 @@ function AppRoutes(){
         options={{
           title: 'Minhas movimentações',
           headerStyle: { backgroundColor: '#F0F4FF', borderBottomWidth: 0 },
-          headerTintColor: '#171717',
-          headerTitleStyle: { fontWeight: 'bold' }
         }}
       />
       <AppDrawer.Screen
-        name="Registrar"
+        name="Registrando"
         component={Registrar}
+        options={{
+          headerStyle: { backgroundColor: '#F0F4FF', borderBottomWidth: 0 },
+        }}
       />
       <AppDrawer.Screen
-        name="MeuPerfil"
+        name="Meu Perfil"
         component={MeuPerfil}
       />
     </AppDrawer.Navigator>
