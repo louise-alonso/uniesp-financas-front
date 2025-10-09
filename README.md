@@ -1,59 +1,112 @@
-# Projeto FINANÇAS
-Este é um projeto React Native.
+Com certeza! Analisei o README.md atual e a imagem do seu aplicativo para criar uma versão mais estruturada, informativa e acolhedora para novos desenvolvedores ou visitantes do seu projeto.
 
-#### Link do Protótipo
-#### https://www.figma.com/design/JxABSe4TIhANXi3bVhngGw/Finan%C3%A7as-App?node-id=0-1&t=fwFkfVTqzfpufxNg-1
+A nova versão foca em explicar o que o projeto faz, quais tecnologias utiliza e como outra pessoa pode executá-lo de forma clara e objetiva.
 
-## Primeiros Passos
+💸 UNIESP Finanças App
+Este é o repositório do front-end para um aplicativo de finanças pessoais desenvolvido em React Native como parte de um projeto acadêmico. O aplicativo permite que os usuários controlem suas receitas e despesas de forma simples e intuitiva, com funcionalidades de cadastro, login e visualização de transações.
 
-### Criando o projeto (se for clone este passo não é necessário)
+📋 Índice
+✨ Funcionalidades Principais
 
-npx create-expo-app@latest uniesp-financas --template blank
+🎨 Protótipo
 
-### Instale o React Navigation
-##### npx expo install @react-navigation/native
-##### npx expo install react-native-screens react-native-safe-area-context
-##### npx expo install @react-navigation/native-stack
+🛠️ Tecnologias Utilizadas
 
+🚀 Como Executar o Projeto
 
+Pré-requisitos
 
-## Mapeamento das aulas
+Passo a Passo
 
-### 14/04/2025 - Criar páginas de Login, de Cadastro
+📂 Estrutura de Pastas
 
-### 28/04/2025 - Página Home + Home Slide Entradas + Home Slide Saídas
+✨ Funcionalidades Principais
+Autenticação de Usuário: Telas de Login e Cadastro para acesso seguro.
 
+Dashboard Intuitivo: Visualização rápida do saldo atual, total de entradas e saídas.
 
-### Criar Estrutura de Pastas
-#### src
-#### src/pages
-#### src/pages/Login
-#### src/pages/Cadastrar
-#### src/routes
+Histórico de Transações: Lista com as últimas movimentações financeiras.
 
-#### O routes/api.js faz o controle de rotas. Se logado for true ele abre a view, se não tem manda renderizar o AuthRoutes.
-#### Já o AuthRoutes é uma configuração de Stack Navigator que contém duas páginas, Logado e Cadastro.
+Registro de Movimentações: Formulário para adicionar novas receitas e despesas.
 
-### Instalar o Styled-Component para fazemos as estilizações.
+Filtragem por Data: Um calendário para consultar o histórico financeiro.
 
-#### npx expo install styled-components -- --legacy-peer-deps
+Gerenciamento de Perfil: Área do usuário com opção de logout.
 
-## 28/04/2025
-### Uso do Axios para consumir APIs Rest
-### Configuração do IP (origem do erro em sala - ip tinha mudado)
-### Projeto do Backend Disponível
+🎨 Protótipo
+O design e o fluxo de telas do projeto foram planejados na plataforma Figma. Você pode visualizar o protótipo completo no link abaixo:
 
-## 05/05/2025
-### Loading no Cadastro
-### Tela Home
-### Login
-### Permanecer Logado
-### Tela Home
+Acessar Protótipo no Figma
 
-## Backend
+🛠️ Tecnologias Utilizadas
+Este projeto foi construído com as seguintes tecnologias e bibliotecas:
 
-### Primeiro clone o repositório e siga as instruções do Readme
-### https://gitlab.com/DevRafaelSa/uniesp-financas-backend
-### Popstman ou Insomnia (https://insomnia.rest/) para testar a API
-### Beekeeper-studio para gerenciar DB (https://github.com/beekeeper-studio/beekeeper-studio/releases/tag/v3.7.10)
+React Native: Framework para desenvolvimento de aplicativos móveis multiplataforma.
 
+Expo: Plataforma e conjunto de ferramentas para facilitar o desenvolvimento com React Native.
+
+Styled Components: Para estilização dos componentes de forma organizada e reutilizável.
+
+React Navigation: Para gerenciamento de rotas e navegação entre as telas.
+
+Axios: Para realizar requisições HTTP e consumir a API do backend.
+
+🚀 Como Executar o Projeto
+Siga os passos abaixo para configurar e rodar o ambiente de desenvolvimento localmente.
+
+Pré-requisitos
+Node.js (versão LTS recomendada)
+
+NPM ou Yarn
+
+Expo Go App no seu smartphone (Android/iOS) ou um emulador configurado.
+
+Git para clonar o repositório.
+
+Passo a Passo
+Backend Primeiro!
+O front-end precisa se comunicar com o backend para funcionar. Clone, instale as dependências e execute o projeto do backend primeiro, seguindo as instruções do repositório dele:
+
+🔗 Repositório do Backend: https://gitlab.com/DevRafaelSa/uniesp-financas-backend
+
+Clone este Repositório (Front-end)
+
+Bash
+
+git clone https://github.com/louise-alonso/uniesp-financas-front.git
+Acesse a Pasta do Projeto
+
+Bash
+
+cd uniesp-financas-front
+Instale as Dependências
+
+Bash
+
+npm install
+ou, se preferir usar o Yarn:
+
+Bash
+
+yarn install
+Configure a Conexão com a API
+A comunicação entre o app e o servidor depende do endereço de IP da sua máquina local. Localize no código (geralmente em um arquivo como src/services/api.js) a variável que define a baseURL do Axios e substitua o IP pelo endereço da máquina onde o backend está rodando.
+
+Dica: Para descobrir seu IP local no Windows, use ipconfig no terminal. No macOS ou Linux, use ifconfig ou ip addr.
+
+Inicie o Projeto
+
+Bash
+
+npx expo start
+Abra o Aplicativo
+Após o comando acima, um QR Code será exibido no terminal. Abra o aplicativo Expo Go no seu celular e escaneie o QR Code para carregar o app.
+
+📂 Estrutura de Pastas
+O projeto está organizado da seguinte forma para facilitar a manutenção e escalabilidade:
+
+src/
+├── components/ # Componentes reutilizáveis (Botões, Inputs, Cards)
+├── pages/      # As telas principais da aplicação (Login, Home, Cadastrar)
+├── routes/     # Configurações de navegação e fluxo de telas (AuthRoutes, AppRoutes)
+└── services/   # Configuração do Axios e lógica de comunicação com a API
