@@ -1,7 +1,3 @@
-Com certeza! Analisei o README.md atual e a imagem do seu aplicativo para criar uma versão mais estruturada, informativa e acolhedora para novos desenvolvedores ou visitantes do seu projeto.
-
-A nova versão foca em explicar o que o projeto faz, quais tecnologias utiliza e como outra pessoa pode executá-lo de forma clara e objetiva.
-
 💸 UNIESP Finanças App
 Este é o repositório do front-end para um aplicativo de finanças pessoais desenvolvido em React Native como parte de um projeto acadêmico. O aplicativo permite que os usuários controlem suas receitas e despesas de forma simples e intuitiva, com funcionalidades de cadastro, login e visualização de transações.
 
